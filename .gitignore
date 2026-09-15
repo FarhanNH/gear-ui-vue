@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Local environment overrides (never commit)
+.env.local
+
+# Vite cache
+.vite/
+
+# TypeScript build info
+*.tsbuildinfo
