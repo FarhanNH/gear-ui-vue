@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 const TOKEN_KEY = 'gear_token'
 const EXPIRES_AT_KEY = 'gear_expires_at'
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://localhost:8443'
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'https://localhost:8443'
 const EXPIRY_CHECK_INTERVAL_MS = 30_000
 
 export const useAuthStore = defineStore('auth', {

@@ -209,6 +209,7 @@ async function handleSave(): Promise<void> {
   try {
     await putSecret(secretPath.value, editValue.value)
     saveSuccess.value = true
+    router.push('/secrets')
   } catch (err: unknown) {
     saveError.value =
       err instanceof Error ? err.message : 'Failed to save secret. Please try again.'
@@ -246,8 +247,8 @@ async function handleCreate(): Promise<void> {
   try {
     await putSecret(newPath.value.trim(), newValue.value)
     saveSuccess.value = true
-    // Navigate to the newly created secret's detail page
-    router.push(`/secrets/${newPath.value.trim()}`)
+    saving.value = false
+    router.push('/secrets')
   } catch (err: unknown) {
     saveError.value =
       err instanceof Error ? err.message : 'Failed to create secret. Please try again.'
