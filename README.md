@@ -29,6 +29,32 @@ policies, and audit logs served by the `gear-engine` backend.
 
 - **Node.js 20+** and npm
 - A running `gear-engine` backend (defaults to `https://localhost:8443`)
+- **uv** (Python package manager) — untuk graphify
+
+## Graphify — Knowledge Graph
+
+Project ini menggunakan [graphify](https://github.com/Graphify-Labs/graphify) untuk membangun knowledge graph kodebase, sehingga AI coding assistant dapat memahami struktur project lebih efisien.
+
+### Install graphify (sekali per mesin)
+
+```bash
+# Install uv (jika belum ada)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Install graphify CLI
+uv tool install graphifyy
+
+# Register skill ke AI assistant
+graphify install
+```
+
+### Update graphify-out (setiap ada perubahan kode)
+
+```bash
+graphify . --code-only
+```
+
+Output tersimpan di `graphify-out/` (sudah di-ignore oleh git). Jalankan ulang perintah ini setiap kali ada perubahan signifikan pada kode agar knowledge graph tetap akurat.
 
 ## Getting Started
 

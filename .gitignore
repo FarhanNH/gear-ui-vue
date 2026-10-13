@@ -12,3 +12,14 @@ dist/
 
 # TypeScript build info
 *.tsbuildinfo
+
+# Environment files (never commit secrets)
+.env
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Graphify knowledge graph output
+graphify-out/
