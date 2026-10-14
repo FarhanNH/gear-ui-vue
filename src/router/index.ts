@@ -58,7 +58,7 @@ router.beforeEach((to) => {
 
   // All routes require auth by default; only opt-out via meta.requiresAuth === false
   if (to.meta.requiresAuth !== false && !authStore.token) {
-    return { name: 'login' }
+    return { name: 'login', query: { redirect: to.fullPath } }
   }
 
   // Already logged in — no need to show the login page again

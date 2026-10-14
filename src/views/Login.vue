@@ -68,10 +68,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
 
 const router = useRouter()
+const route = useRoute()
 const authStore = useAuthStore()
 
 const username = ref('')
@@ -85,7 +86,12 @@ async function handleLogin() {
 
   try {
     await authStore.login(username.value, password.value)
-    router.push('/secrets')
+    const redirect = route.query.redirect
+    const destination =
+      typeof redirect === 'string' && redirect.startsWith('/') && !redirect.startsWith('//')
+        ? redirect
+        : '/secrets'
+    router.push(destination)
   } catch (err: unknown) {
     error.value =
       err instanceof Error ? err.message : 'Login failed. Please try again.'
