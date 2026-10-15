@@ -118,6 +118,24 @@ The type-checked, bundled output is written to `dist/`, which can be served by
 any static file host. Ensure the deployed app can reach the `gear-engine` API
 (configure a reverse proxy for `/v1` or set the appropriate base URL).
 
+## CI/CD
+
+The workflow in `.github/workflows/deploy.yml` checks pushes and pull requests
+to `master`. Pushing a `vMAJOR.MINOR.PATCH` tag whose commit belongs to `master`
+builds `ghcr.io/farhannh/gear-ui-vue:<tag>` and deploys only `gear-ui` through
+`/opt/apps/gear/deploy.sh` on the VPS. The shared deployment kit is maintained
+in the `gear-engine` repository under `deploy/` and must already be installed.
+
+Configure `VPS_HOST`, `VPS_PORT`, `VPS_USER`, `VPS_SSH_KEY`, and
+`VPS_FINGERPRINT` in repository Actions secrets. The VPS deploy user also needs
+pull access to the private GHCR package.
+
+The Docker build defaults `VITE_API_BASE_URL` to an empty string so `/v1`
+requests use the UI Nginx proxy. Local `.env*` files are excluded from the Docker
+build context; runtime Nginx environment variables cannot change the compiled
+API URL. The production build includes TypeScript checking; there is no UI
+unit-test or lint script yet. CI also runs `npm audit --audit-level=moderate`.
+
 ## Security Notes
 
 - All storage, encryption, and authorization live in the backend; this UI is a
